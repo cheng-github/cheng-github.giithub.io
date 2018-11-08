@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Comparator &amp;&amp; Comparable in Java | Cheng</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Comparator和Comparable是Java中将对象按照数据成员进行排序的两个接口，最近在读《数据结构与算法分析　Java语言描述》-Mark Allen Weiss ,看到书中的例子使用到了这两个接口，所以就想学习一下Java中这两个接口的使用方式　(｀・ω・´)">
+<meta name="keywords" content="TECHNOLOGY">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Comparator &amp;&amp; Comparable in Java">
+<meta property="og:url" content="http://swcheng.com/2018/11/06/Comparator && Comparable/index.html">
+<meta property="og:site_name" content="Cheng">
+<meta property="og:description" content="Comparator和Comparable是Java中将对象按照数据成员进行排序的两个接口，最近在读《数据结构与算法分析　Java语言描述》-Mark Allen Weiss ,看到书中的例子使用到了这两个接口，所以就想学习一下Java中这两个接口的使用方式　(｀・ω・´)">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-08T14:19:22.565Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Comparator &amp;&amp; Comparable in Java">
+<meta name="twitter:description" content="Comparator和Comparable是Java中将对象按照数据成员进行排序的两个接口，最近在读《数据结构与算法分析　Java语言描述》-Mark Allen Weiss ,看到书中的例子使用到了这两个接口，所以就想学习一下Java中这两个接口的使用方式　(｀・ω・´)">
+    
+
+    
+        <link rel="alternate" href="/" title="Cheng" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/css/images/logo.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fa-brands.min.css">
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fa-solid.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Cheng</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/swcheng.jpg" />
+                            <i class="fas fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fas fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="profile-fixed">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/swcheng.jpg" />
+            <h2 id="name">Cheng</h2>
+            <h3 id="title">Why not try to follow your own voice</h3>
+            <span id="location"><i class="fas fa-map-marker-alt" style="padding-right: 5px"></i>Shanghai, China</span>
+            <a id="follow" target="_blank" href="https://github.com/cheng-github/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                2
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                2
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+					
+                        <a href="https://github.com/cheng-github/" target="_blank" title="github" class=tooltip>
+                            <i class="fab fa-github"></i>
+                        </a>
+					
+					
+                    </td>
+                    
+                    <td>
+					
+                        <a href="https://twitter.com/Cheng_shiwei" target="_blank" title="twitter" class=tooltip>
+                            <i class="fab fa-twitter"></i>
+                        </a>
+					
+					
+                    </td>
+                    
+                    <td>
+					
+                        <a href="https://weibo.com/u/5626904749?refer_flag=1001030101_" target="_blank" title="weibo" class=tooltip>
+                            <i class="fab fa-weibo"></i>
+                        </a>
+					
+					
+                    </td>
+                    
+                    <td>
+					
+					
+						<a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fas fa-rss"></i>
+                        </a>
+					
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Comparator &amp;&amp; Comparable" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Comparator &amp;&amp; Comparable in Java
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fas fa-calendar-alt"></i>
+        <a href="/2018/11/06/Comparator && Comparable/">
+            <time datetime="2018-11-06T08:33:00.000Z" itemprop="datePublished">2018-11-06</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fas fa-folder"></i>
+        <a class="article-category-link" href="/categories/JAVA/">JAVA</a><i class="fas fa-angle-right"></i><a class="article-category-link" href="/categories/JAVA/DATA-STRACTURE/">DATA_STRACTURE</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/TECHNOLOGY/">TECHNOLOGY</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+			<p>　　Comparator和Comparable是Java中将对象按照数据成员进行排序的两个接口，最近在读<strong>《数据结构与算法分析　Java语言描述》<em>-Mark Allen Weiss</em></strong> ,看到书中的例子使用到了这两个接口，所以就想学习一下Java中这两个接口的使用方式　(｀・ω・´)<br><a id="more"></a><br>　　在Java中Comparable接口定义为:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt; </span>&#123;    </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(T o)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>　　接口中仅定义了一个<strong><em>compareTo()</em></strong>方法，自定义的对象则可以通过实现这个方法并结合Collections.sort()进行排序。比如自定义一个Order类:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Order</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> orderNumber;</span><br><span class="line">    <span class="keyword">private</span> String orderDes;</span><br><span class="line">    <span class="keyword">private</span> LocalDate orderTime;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Order</span><span class="params">(<span class="keyword">int</span> orderNumber, String orderDes, LocalDate orderTime)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.orderNumber = orderNumber;</span><br><span class="line">        <span class="keyword">this</span>.orderDes = orderDes;</span><br><span class="line">        <span class="keyword">this</span>.orderTime = orderTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Order o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getOrderNumber() - o.getOrderNumber();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span>  <span class="keyword">this</span>.orderNumber + <span class="string">"  "</span> + <span class="keyword">this</span>.orderDes + <span class="string">"  "</span> + <span class="keyword">this</span>.orderTime;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ... 省略getter setter</span></span><br></pre></td></tr></table></figure><br>　　该Order类中定义了三个字段orderNumber、orderDes、orderTime，依次表示订单号、订单描述、订单时间。<strong><em>compareTo()</em></strong>方法简单的返回订单号的值的相减结果，第一次单元测试用例如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">testComparableSimple</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      ArrayList&lt;Order&gt; lists = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">      lists.add(<span class="keyword">new</span> Order(<span class="number">123</span>,<span class="string">"order 123"</span>,LocalDate.of(<span class="number">2018</span>,<span class="number">11</span>,<span class="number">6</span>)));</span><br><span class="line">      lists.add(<span class="keyword">new</span> Order(<span class="number">221</span>,<span class="string">"order 221"</span>,LocalDate.of(<span class="number">2012</span>,<span class="number">9</span>,<span class="number">1</span>)));</span><br><span class="line">      lists.add(<span class="keyword">new</span> Order(<span class="number">71</span>,<span class="string">"order 71"</span>,LocalDate.of(<span class="number">2015</span>,<span class="number">2</span>,<span class="number">7</span>)));</span><br><span class="line">      lists.add(<span class="keyword">new</span> Order(<span class="number">691</span>,<span class="string">"order 691"</span>,LocalDate.of(<span class="number">2011</span>,<span class="number">6</span>,<span class="number">21</span>)));</span><br><span class="line">      lists.add(<span class="keyword">new</span> Order(<span class="number">419</span>,<span class="string">"order 419"</span>,LocalDate.of(<span class="number">2009</span>,<span class="number">3</span>,<span class="number">31</span>)));</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lists.size() - <span class="number">1</span> ; i++) &#123;</span><br><span class="line">          System.out.println(<span class="string">"第"</span> + i +<span class="string">"个元素与第"</span> + (i+<span class="number">1</span>) + <span class="string">"元素进行比较:"</span> +</span><br><span class="line">                  lists.get(i).compareTo(lists.get(i+<span class="number">1</span>)));</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">/* 输出结果:</span></span><br><span class="line"><span class="comment">    第0个元素与第1元素进行比较:-98</span></span><br><span class="line"><span class="comment">    第1个元素与第2元素进行比较:150</span></span><br><span class="line"><span class="comment">    第2个元素与第3元素进行比较:-620</span></span><br><span class="line"><span class="comment">    第3个元素与第4元素进行比较:272</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure><br>　　从上面的输出结果可以看出，Order类实现的Comparable接口的作用就是用于与其它Order对象使用<strong><em>compareTo()</em></strong>进行比较并返回一个int值。目前我们还看不出这个方法的作用，但是我们再看下一个单元测试就会明白其的作用了:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testComparableSecond</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ArrayList&lt;Order&gt; lists = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    lists.add(<span class="keyword">new</span> Order(<span class="number">123</span>,<span class="string">"order 123"</span>,LocalDate.of(<span class="number">2018</span>,<span class="number">11</span>,<span class="number">6</span>)));</span><br><span class="line">    lists.add(<span class="keyword">new</span> Order(<span class="number">221</span>,<span class="string">"order 221"</span>,LocalDate.of(<span class="number">2012</span>,<span class="number">9</span>,<span class="number">1</span>)));</span><br><span class="line">    lists.add(<span class="keyword">new</span> Order(<span class="number">71</span>,<span class="string">"order 71"</span>,LocalDate.of(<span class="number">2015</span>,<span class="number">2</span>,<span class="number">7</span>)));</span><br><span class="line">    lists.add(<span class="keyword">new</span> Order(<span class="number">691</span>,<span class="string">"order 691"</span>,LocalDate.of(<span class="number">2011</span>,<span class="number">6</span>,<span class="number">21</span>)));</span><br><span class="line">    lists.add(<span class="keyword">new</span> Order(<span class="number">419</span>,<span class="string">"order 419"</span>,LocalDate.of(<span class="number">2009</span>,<span class="number">3</span>,<span class="number">31</span>)));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">"未进行排序前的顺序:"</span>);</span><br><span class="line">    <span class="keyword">for</span>(Order order: lists)&#123;</span><br><span class="line">        System.out.println(order);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 调用Collections.sort()进行排序</span></span><br><span class="line">    Collections.sort(lists);</span><br><span class="line">    System.out.println(<span class="string">"进行排序之后的顺序:"</span>);</span><br><span class="line">    <span class="keyword">for</span>(Order order: lists)&#123;</span><br><span class="line">        System.out.println(order);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 输出结果:</span></span><br><span class="line"><span class="comment">    未进行排序前的顺序:</span></span><br><span class="line"><span class="comment">    123  order 123  2018-11-06</span></span><br><span class="line"><span class="comment">    221  order 221  2012-09-01</span></span><br><span class="line"><span class="comment">    71  order 71  2015-02-07</span></span><br><span class="line"><span class="comment">    691  order 691  2011-06-21</span></span><br><span class="line"><span class="comment">    419  order 419  2009-03-31</span></span><br><span class="line"><span class="comment">    进行排序之后的顺序:</span></span><br><span class="line"><span class="comment">    71  order 71  2015-02-07</span></span><br><span class="line"><span class="comment">    123  order 123  2018-11-06</span></span><br><span class="line"><span class="comment">    221  order 221  2012-09-01</span></span><br><span class="line"><span class="comment">    419  order 419  2009-03-31</span></span><br><span class="line"><span class="comment">    691  order 691  2011-06-21</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure><br>　　从输出结果可以看出lists里的数据根据orderNumber进行了升序排序，而这是因为Order实现了Comparable接口的<strong><em>compareTo()</em></strong>方法,我们在该方法中返回相减的结果。当结果为正数，零，或者负数分别表示调用<strong><em>compareTo()</em></strong>的对象大于、等于、小于传递到方法中的参数对象，默认升序排序。如果需要降序排序则返回相反数即可。<br>　　至于Comparator接口，如果需要使用其来进行排序则需要编写一个类去实现它的<strong><em>compare()</em></strong>方法，这里我们编写一个先根据订单号再根据订单日期进行排序的实现类<strong><em>SortByOrderNumberAndTime.class:</em></strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortByOrderNumberAndTime</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Order</span>&gt; </span>&#123;</span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * 根据订单号进行排序，订单号相同则根据时间进行排序</span></span><br><span class="line"><span class="comment">       * <span class="doctag">@param</span> o1</span></span><br><span class="line"><span class="comment">       * <span class="doctag">@param</span> o2</span></span><br><span class="line"><span class="comment">       * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Order o1, Order o2)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">int</span> numberOrder = o1.getOrderNumber() - o2.getOrderNumber();</span><br><span class="line">          <span class="keyword">int</span> timeOrder = o1.getOrderTime().compareTo(o2.getOrderTime());</span><br><span class="line">          <span class="keyword">if</span>(numberOrder == <span class="number">0</span> &amp;&amp; timeOrder != <span class="number">0</span>)</span><br><span class="line">              <span class="keyword">return</span> timeOrder;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">              <span class="keyword">return</span> numberOrder;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>　　对应的单元测试:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">testComparator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      ArrayList&lt;Order&gt; lists = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">      lists.add(<span class="keyword">new</span> Order(<span class="number">123</span>,<span class="string">"order 123"</span>,LocalDate.of(<span class="number">2018</span>,<span class="number">11</span>,<span class="number">6</span>)));</span><br><span class="line">      lists.add(<span class="keyword">new</span> Order(<span class="number">221</span>,<span class="string">"order 221"</span>,LocalDate.of(<span class="number">2012</span>,<span class="number">9</span>,<span class="number">1</span>)));</span><br><span class="line">      lists.add(<span class="keyword">new</span> Order(<span class="number">221</span>,<span class="string">"order 221"</span>,LocalDate.of(<span class="number">2017</span>,<span class="number">2</span>,<span class="number">7</span>)));</span><br><span class="line">      lists.add(<span class="keyword">new</span> Order(<span class="number">221</span>,<span class="string">"order 221"</span>,LocalDate.of(<span class="number">2015</span>,<span class="number">6</span>,<span class="number">21</span>)));</span><br><span class="line">      lists.add(<span class="keyword">new</span> Order(<span class="number">419</span>,<span class="string">"order 419"</span>,LocalDate.of(<span class="number">2009</span>,<span class="number">3</span>,<span class="number">31</span>)));</span><br><span class="line">      System.out.println(<span class="string">"未进行排序前的顺序:"</span>);</span><br><span class="line">      <span class="keyword">for</span>(Order order: lists)&#123;</span><br><span class="line">          System.out.println(order);</span><br><span class="line">      &#125;</span><br><span class="line">      Collections.sort(lists,<span class="keyword">new</span> SortByOrderNumberAndTime());</span><br><span class="line">      System.out.println(<span class="string">"排序之后的顺序"</span>);</span><br><span class="line">      <span class="keyword">for</span>(Order order: lists)&#123;</span><br><span class="line">          System.out.println(order);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">/*输出结果:</span></span><br><span class="line"><span class="comment">  未进行排序前的顺序:</span></span><br><span class="line"><span class="comment">  123  order 123  2018-11-06</span></span><br><span class="line"><span class="comment">  221  order 221  2012-09-01</span></span><br><span class="line"><span class="comment">  221  order 221  2017-02-07</span></span><br><span class="line"><span class="comment">  221  order 221  2015-06-21</span></span><br><span class="line"><span class="comment">  419  order 419  2009-03-31</span></span><br><span class="line"><span class="comment">  排序之后的顺序</span></span><br><span class="line"><span class="comment">  123  order 123  2018-11-06</span></span><br><span class="line"><span class="comment">  221  order 221  2012-09-01</span></span><br><span class="line"><span class="comment">  221  order 221  2015-06-21</span></span><br><span class="line"><span class="comment">  221  order 221  2017-02-07</span></span><br><span class="line"><span class="comment">  419  order 419  2009-03-31</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure><br>　　我们可以看到lists首先根据订单号然后根据时间先后顺序进行了排序，这里也是依据SortByOrderNumberAndTime类中实现的<strong><em>compare()</em></strong>方法进行的排序，并且在compare()里使用到了LocalDate类里的compareTo()方法去比较时间先后顺序，除了LocalDate,Java中许多常用的类也默认提供了对Comparable接口的实现，比如String、Integer、Character、Float、Byte基本数据类型的包装类，具体可以查看官网的Docs。<br>　　不论是Comparator接口还是Comparable接口，都是实现排序的一种方式，当然也可以结合一起使用，具体的使用方式还是得取决于最终的需求。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://swcheng.com/2018/11/06/Comparator && Comparable/" data-id="cjo8ok8xl0004wswtm0f2i5l2" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/10/19/2018-10-19-博客开篇/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">个人博客开始之旅</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/11/06/Comparator && Comparable/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/JAVA/">JAVA</a><i class="fas fa-angle-right"></i><a class="article-category-link" href="/categories/JAVA/DATA-STRACTURE/">DATA_STRACTURE</a></p>
+                            <p class="item-title"><a href="/2018/11/06/Comparator && Comparable/" class="title">Comparator &amp;&amp; Comparable in Java</a></p>
+                            <p class="item-date"><time datetime="2018-11-06T08:33:00.000Z" itemprop="datePublished">2018-11-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/10/19/2018-10-19-博客开篇/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://swcheng.com/images/initial_heart.jpg)" alt="个人博客开始之旅" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/LIFE/">LIFE</a><i class="fas fa-angle-right"></i><a class="article-category-link" href="/categories/START/">START</a></p>
+                            <p class="item-title"><a href="/2018/10/19/2018-10-19-博客开篇/" class="title">个人博客开始之旅</a></p>
+                            <p class="item-date"><time datetime="2018-10-19T14:24:00.000Z" itemprop="datePublished">2018-10-19</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/DATA-STRACTURE/">DATA_STRACTURE</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/LIFE/">LIFE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/START/">START</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/FEELING/">FEELING</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TECHNOLOGY/">TECHNOLOGY</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/FEELING/" style="font-size: 10px;">FEELING</a> <a href="/tags/TECHNOLOGY/" style="font-size: 10px;">TECHNOLOGY</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fas fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 Chengshiwei<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
