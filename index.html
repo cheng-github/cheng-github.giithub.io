@@ -162,7 +162,7 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                2
+                3
                 <span>文章</span>
             </div>
             <div class="article-info-block">
@@ -221,6 +221,137 @@
 
             
             <section id="main">
+    <article id="post-2018-11-19_最大子序列求和" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/11/18/2018-11-19_最大子序列求和/">求最大子序列和的四种实现方式</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fas fa-calendar-alt"></i>
+        <a href="/2018/11/18/2018-11-19_最大子序列求和/">
+            <time datetime="2018-11-18T08:20:00.000Z" itemprop="datePublished">2018-11-18</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fas fa-folder"></i>
+        <a class="article-category-link" href="/categories/JAVA/">JAVA</a><i class="fas fa-angle-right"></i><a class="article-category-link" href="/categories/JAVA/DATA-STRACTURE/">DATA_STRACTURE</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/TECHNOLOGY/">TECHNOLOGY</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>　　在总结求最大子序列和的四种实现方式之前想谈谈为什么自己想要重新学习数据结构。之前在大二下学期的时候已经学过了数据结构这个课程，依稀记得老师一直提醒我们数据结构是计算机的核心课程，并且对于考研或者是找工作面试都是很重要的，特地提醒我们要重视这门课程，希望我们好好学习数据结构。当时自己在上数据结构这个课程之前已经使用过基本的数据结构-链表完成了大一下学期的一个C语言课程设计，记得那是自己使用C语言写的一个程序，虽然仅有一百多行，显示界面也只是一个小黑框，但完成的时候特别激动，因为那是自己真正意义上动手写的第一个完整程序。本来还想找到原来的代码运行一下，但发现自己前一段时间为了清理笔记本空间已经将自己之前写的关于C的代码都删除了<strong> ╮(╯﹏╰）╭</strong><br></p>
+            <p class="article-more-link">
+                <a href="/2018/11/18/2018-11-19_最大子序列求和/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://swcheng.com/2018/11/18/2018-11-19_最大子序列求和/" data-id="cjoo2ew8w0000lswtldcdrv89" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-Comparator &amp;&amp; Comparable" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -263,7 +394,7 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            <p><p>　　Comparator和Comparable是Java中将对象按照数据成员进行排序的两个接口，最近在读<strong>《数据结构与算法分析　Java语言描述》<em>-Mark Allen Weiss</em></strong> ,看到书中的例子使用到了这两个接口，所以就想学习一下Java中这两个接口的使用方式　(｀・ω・´)<br></p>
+            <p><p>　　Comparator和Comparable是Java中将对象按照数据成员进行排序的两个接口，最近在读<strong>《数据结构与算法分析　Java语言描述》_-Mark Allen Weiss_</strong> ,看到书中的例子使用到了这两个接口，所以就想学习一下Java中这两个接口的使用方式　(｀・ω・´)<br></p>
             <p class="article-more-link">
                 <a href="/2018/11/06/Comparator && Comparable/#more">查看更多</a>
             </p>
@@ -276,7 +407,7 @@
 
 </div>
 
-    <a data-url="http://swcheng.com/2018/11/06/Comparator && Comparable/" data-id="cjo8ok8xl0004wswtm0f2i5l2" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
+    <a data-url="http://swcheng.com/2018/11/06/Comparator && Comparable/" data-id="cjomsfhhg0003q8wt6cixchb4" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -417,7 +548,7 @@
 
 </div>
 
-    <a data-url="http://swcheng.com/2018/10/19/2018-10-19-博客开篇/" data-id="cjo8ok8xc0000wswtqn96i5cr" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
+    <a data-url="http://swcheng.com/2018/10/19/2018-10-19-博客开篇/" data-id="cjomsfhhb0001q8wtw0rlai6m" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -506,6 +637,25 @@
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2018/11/18/2018-11-19_最大子序列求和/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/JAVA/">JAVA</a><i class="fas fa-angle-right"></i><a class="article-category-link" href="/categories/JAVA/DATA-STRACTURE/">DATA_STRACTURE</a></p>
+                            <p class="item-title"><a href="/2018/11/18/2018-11-19_最大子序列求和/" class="title">求最大子序列和的四种实现方式</a></p>
+                            <p class="item-date"><time datetime="2018-11-18T08:20:00.000Z" itemprop="datePublished">2018-11-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2018/11/06/Comparator && Comparable/" class="thumbnail">
     
     
@@ -550,7 +700,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/DATA-STRACTURE/">DATA_STRACTURE</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/LIFE/">LIFE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/START/">START</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/DATA-STRACTURE/">DATA_STRACTURE</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/LIFE/">LIFE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/START/">START</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -559,7 +709,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -568,7 +718,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/FEELING/">FEELING</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TECHNOLOGY/">TECHNOLOGY</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/FEELING/">FEELING</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TECHNOLOGY/">TECHNOLOGY</a><span class="tag-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -577,7 +727,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/FEELING/" style="font-size: 10px;">FEELING</a> <a href="/tags/TECHNOLOGY/" style="font-size: 10px;">TECHNOLOGY</a>
+            <a href="/tags/FEELING/" style="font-size: 10px;">FEELING</a> <a href="/tags/TECHNOLOGY/" style="font-size: 20px;">TECHNOLOGY</a>
         </div>
     </div>
 
@@ -629,6 +779,11 @@
         <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
     
     
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
 
 
 
@@ -636,5 +791,20 @@
 <script src="/js/main.js"></script>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
