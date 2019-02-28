@@ -21,7 +21,7 @@ customize:
         avatar: css/images/swcheng.jpg
         gravatar: # Gravatar email address, if you enable Gravatar, your avatar config will be overriden
         author: Cheng 
-        author_title: Why not try to follow your own voice
+        author_title: 不需要天才 只想玩的开怀 Yeah!
         location: Shanghai, China
         follow: https://github.com/cheng-github/
     highlight: monokai
