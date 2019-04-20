@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Vue基础-数据绑定 | Cheng</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="在引入Vue需要的js文件之后，比如我们在js代码里创建下面这样一个Vue对象:">
+<meta name="keywords" content="TECHNOLOGY">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue基础-数据绑定">
+<meta property="og:url" content="http://swcheng.com/2019/04/20/Vue基础-数据绑定/index.html">
+<meta property="og:site_name" content="Cheng">
+<meta property="og:description" content="在引入Vue需要的js文件之后，比如我们在js代码里创建下面这样一个Vue对象:">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://swcheng.com/images/vuelogo.png">
+<meta property="og:updated_time" content="2019-04-20T06:16:31.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue基础-数据绑定">
+<meta name="twitter:description" content="在引入Vue需要的js文件之后，比如我们在js代码里创建下面这样一个Vue对象:">
+<meta name="twitter:image" content="http://swcheng.com/images/vuelogo.png">
+    
+
+    
+        <link rel="alternate" href="/" title="Cheng" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/css/images/logo.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fa-brands.min.css">
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fa-solid.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Cheng</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/swcheng.jpg" />
+                            <i class="fas fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fas fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="profile-fixed">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/swcheng.jpg" />
+            <h2 id="name">Cheng</h2>
+            <h3 id="title">不需要天才 只想玩的开怀 Yeah!</h3>
+            <span id="location"><i class="fas fa-map-marker-alt" style="padding-right: 5px"></i>Shanghai, China</span>
+            <a id="follow" target="_blank" href="https://github.com/cheng-github/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                14
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                7
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+					
+                        <a href="https://github.com/cheng-github/" target="_blank" title="github" class=tooltip>
+                            <i class="fab fa-github"></i>
+                        </a>
+					
+					
+                    </td>
+                    
+                    <td>
+					
+                        <a href="https://twitter.com/Cheng_shiwei" target="_blank" title="twitter" class=tooltip>
+                            <i class="fab fa-twitter"></i>
+                        </a>
+					
+					
+                    </td>
+                    
+                    <td>
+					
+                        <a href="https://weibo.com/u/5626904749?refer_flag=1001030101_" target="_blank" title="weibo" class=tooltip>
+                            <i class="fab fa-weibo"></i>
+                        </a>
+					
+					
+                    </td>
+                    
+                    <td>
+					
+					
+						<a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fas fa-rss"></i>
+                        </a>
+					
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Vue基础-数据绑定" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Vue基础-数据绑定
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fas fa-calendar-alt"></i>
+        <a href="/2019/04/20/Vue基础-数据绑定/">
+            <time datetime="2019-04-20T12:47:00.000Z" itemprop="datePublished">2019-04-20</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fas fa-folder"></i>
+        <a class="article-category-link" href="/categories/UI/">UI</a><i class="fas fa-angle-right"></i><a class="article-category-link" href="/categories/UI/VUE/">VUE</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/TECHNOLOGY/">TECHNOLOGY</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+			<p>　　在引入Vue需要的js文件之后，比如我们在js代码里创建下面这样一个Vue对象:<br><a id="more"></a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个组件</span></span><br><span class="line">Vue.component(<span class="string">'my-component'</span>, &#123;</span><br><span class="line">  template: <span class="string">'&lt;p class="foo bar"&gt;Hi&lt;/p&gt;'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(</span><br><span class="line">&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">"Hello World!"</span>,</span><br><span class="line">    seen: <span class="literal">true</span>,</span><br><span class="line">    dynamicId: <span class="string">"iamid"</span>,</span><br><span class="line">    attributeName: <span class="string">"href"</span>,</span><br><span class="line">    addre: <span class="string">"http://www.baidu.com"</span>,</span><br><span class="line">    isDisable: <span class="literal">true</span>,</span><br><span class="line">    vhtml: <span class="string">"&lt;input&gt;"</span>,</span><br><span class="line">    firstName: <span class="string">'Foo'</span>,</span><br><span class="line">    lastName: <span class="string">'Bar'</span>,</span><br><span class="line">    fullName: <span class="string">'Foo Bar'</span></span><br><span class="line">    todos: [</span><br><span class="line">      &#123;<span class="attr">text</span>:  <span class="string">"Learn JavaScript"</span> &#125;,</span><br><span class="line">      &#123;<span class="attr">text</span>:  <span class="string">"Learn Vue"</span> &#125;,</span><br><span class="line">      &#123;<span class="attr">text</span>:  <span class="string">"Build something awesome"</span> &#125;</span><br><span class="line">    ],</span><br><span class="line">    groceryList: [</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">0</span>,</span><br><span class="line">        text: <span class="string">'Vegetables'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        text: <span class="string">'Cheese'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">2</span>,</span><br><span class="line">        text: <span class="string">'Whatever else humans are supposed to eat'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="comment">// class和style属性的绑定</span></span><br><span class="line">    isActive: <span class="literal">true</span>,</span><br><span class="line">    hasError: <span class="literal">true</span>,</span><br><span class="line">    classObject: &#123;</span><br><span class="line">      cla1: <span class="literal">true</span>,</span><br><span class="line">      cla2: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    ind1: <span class="string">"class1"</span>,</span><br><span class="line">    ind2: <span class="string">"class2"</span>,</span><br><span class="line">    activeColor: <span class="string">"red"</span>,</span><br><span class="line">    fontSize: <span class="number">20</span>,</span><br><span class="line">    styleObject: &#123;</span><br><span class="line">      color: <span class="string">'pink'</span>,</span><br><span class="line">      fontSize: <span class="string">'13px'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    reverseMessage: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.message = <span class="keyword">this</span>.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    reversedMessage: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    firstName: <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.fullName = val + <span class="string">' '</span> + <span class="keyword">this</span>.lastName</span><br><span class="line">    &#125;,</span><br><span class="line">    lastName: <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.fullName = <span class="keyword">this</span>.firstName + <span class="string">' '</span> + val</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="文本解析"><a href="#文本解析" class="headerlink" title="文本解析"></a>文本解析</h3><p>　　可以使用Mustache标签去做原始的文本解析，这样的解析后的结果不会作为html代码输出:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>Message: &#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure><br>　　结果显示:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>Message: Hello World!<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure><br>　　如果不希望span里的内容随着message的属性变化而变化，可以使用一次赋值，下面的messgae的值不会改变:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">v-once</span>&gt;</span>Message: &#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Html解析"><a href="#Html解析" class="headerlink" title="Html解析"></a>Html解析</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">v-html</span>=<span class="string">"vhtml"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>　　解析后的结果为:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="属性解析"><a href="#属性解析" class="headerlink" title="属性解析"></a>属性解析</h3><p>　　使用v-bind指令:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:id</span>=<span class="string">"dynamicId"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><br>　　解析结果:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"iamid"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><br>　　动态绑定对应属性:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:</span>[<span class="attr">attributeName</span>]=<span class="string">"addre"</span>&gt;</span> ... <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure><br>　　该节点对应的vue对象的attributeName的值将作为将要设置的对应属性。如果是href记得要加http://前缀，不然会当做ftp。一个需要注意的地方是attributeName在有些浏览器会被全部被当做小写去解析，所以这个值我们尽量可能在vue对象中定义为小写。</p>
+<p>　　当然也可以解析除了id之外的其它任何属性。注意以上无论是使用v-指令亦或者是Mustache标签，都可以使用js表达式去获得最终的值，但是仅仅可以使用一个js表达式去计算，而不可以写一堆js语句。</p>
+<h3 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h3><p>　　计算属性是我们在vue对象中定义的需要通过一些js代码计算获得最终值的属性，这些属性的变化取决于它需要计算的属性的变化，这个对应的属性被称为响应式依赖。比如这里的message即使需要被计算的对象，当message变化的时候reversedMessgae属性就会发生变化。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Computed reversed message: "&#123;&#123; message &#125;&#125;"<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>　　如果你不需要当响应式依赖改变的时候才可以改变计算属性的值，你想要自己手动直接修改，那么你可以修改为下面。当然这里的cache意味着你访问这个computed的值的时候，它是否会使用之前的缓存值，不使用则是是重新调用get方法。而且，即使我们重写这个set方法，其实作用也不大，因为我们再次获取就会调用get方法，返回不是我们改变的值，所以只有在set中改变对应的响应式依赖，这里的改变才会变得有意义。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  reversedMessage: &#123;</span><br><span class="line">    cache: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// getter</span></span><br><span class="line">    get: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// setter</span></span><br><span class="line">    set: <span class="function"><span class="keyword">function</span> (<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.message = newValue</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="侦听属性"><a href="#侦听属性" class="headerlink" title="侦听属性"></a>侦听属性</h3><p>　　侦听属性，就是我们需要进行监听其值的变化的属性，然后执行我们需要的操作。每当firstName或者lastName的值被修改的时候，对应的watch方法就会被调用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">  firstName: <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.fullName = val + <span class="string">' '</span> + <span class="keyword">this</span>.lastName</span><br><span class="line">  &#125;,</span><br><span class="line">  lastName: <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.fullName = <span class="keyword">this</span>.firstName + <span class="string">' '</span> + val</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>　　对于class属性以及style属性，如果去做一些字符串拼接和计算，则会特别繁琐，故而vue对这些属性的绑定做了一些特别的处理。</p>
+<h3 id="class属性绑定"><a href="#class属性绑定" class="headerlink" title="class属性绑定"></a>class属性绑定</h3><p>　　直接引用vue对象中定义的对象或者手动创建一个对象亦或者是一个属性，或者是使用一个包含对象以及属性的数组:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 直接在双引号中使用js表达式返回一个对象，如果在vue对象中，isAcitve是true则存在这个class否则就是没有 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive, 'text-danger': hasError&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 直接引用一个对象 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">v-bind:class</span>=<span class="string">"classObject"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 传递一个数组，这里是将数组里的属性作为对象中的属性值传递到里面去，这样就不存在是否有true或false这一说法了 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">v-bind:class</span>=<span class="string">"[ind1, ind2]"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 也可以将属性和对象共同使用 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">v-bind:class</span>=<span class="string">"[ind1, ind2, classObject]"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 如果想要达到使用数组切换的目的，那么可以使用三元表达式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">v-bind:class</span>=<span class="string">"[isActive ? ind1: '', ind2]"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>　　解析结果:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"active text-danger"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"cla1 cla2"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"class1 class2"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"class1 class2 cla1 cls2"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"class1 class2"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>　　<br>　　对于自定义组件，如果在定义中就已经存在一些值，那么会在其后进行追加。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 组件的定义必须放在最前面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br></pre></td></tr></table></figure>　　<br>　　解析结果:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"foo bar active"</span>&gt;</span>Hi<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>　　<br>　　可以与普通的class属性共存，也就是可以使用class与v-bind共同完成属性的设置。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">&lt;!-- 也可以与普通的class属性共存 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive, 'text-danger': hasError &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>　<br>　　解析结果:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static active text-danger"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="绑定内联样式"><a href="#绑定内联样式" class="headerlink" title="绑定内联样式"></a>绑定内联样式</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 绑定内联样式，使用对象去绑定，不过定义在vue对象中更加合适 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"&#123; color: activeColor, fontSize: fontSize + 'px' &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 定义在对象中，当然也可以使用数组来引用多个对象 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"styleObject"</span>&gt;</span>123<span class="tag">&lt;/<span class="name">div</span>&gt;</span>    </span><br><span class="line"><span class="comment">&lt;!-- 可以为一些属性添加多重值 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">"&#123; display: ['-webkit-box', '-ms-flexbox', 'flex'] &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>　　解析结果:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"color: red; font-size: 20px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"color: pink; font-size: 13px;"</span>&gt;</span>123<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"display: flex;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="命令缩写"><a href="#命令缩写" class="headerlink" title="命令缩写"></a>命令缩写</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 完整语法 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">"url"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 缩写 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">:href</span>=<span class="string">"url"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 完整语法 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-on:click</span>=<span class="string">"doSomething"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 缩写 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> @<span class="attr">click</span>=<span class="string">"doSomething"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>　　在编写这篇Vue笔记的时候，会出现Mustache标签与Nunjucks语法冲突的问题，解决方案可以查看 <a href="https://github.com/hexojs/hexo/issues/1930" title="Vue.js 中的双大括号与 Nunjucks 解析相冲突" target="_blank" rel="noopener">这里</a>。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://swcheng.com/2019/04/20/Vue基础-数据绑定/" data-id="cjup24ixf0000hcwt4m3yn98j" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/04/19/找工作的一些感受/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">找工作的一些感受</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/04/20/Vue基础-数据绑定/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://swcheng.com/images/vuelogo.png)" alt="Vue基础-数据绑定" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/UI/">UI</a><i class="fas fa-angle-right"></i><a class="article-category-link" href="/categories/UI/VUE/">VUE</a></p>
+                            <p class="item-title"><a href="/2019/04/20/Vue基础-数据绑定/" class="title">Vue基础-数据绑定</a></p>
+                            <p class="item-date"><time datetime="2019-04-20T12:47:00.000Z" itemprop="datePublished">2019-04-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/04/19/找工作的一些感受/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/LIFE/">LIFE</a></p>
+                            <p class="item-title"><a href="/2019/04/19/找工作的一些感受/" class="title">找工作的一些感受</a></p>
+                            <p class="item-date"><time datetime="2019-04-19T12:09:00.000Z" itemprop="datePublished">2019-04-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/18/早上五点的清晨/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://swcheng.com/images/realmorning.jpg)" alt="早上五点的清晨" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/LIFE/">LIFE</a></p>
+                            <p class="item-title"><a href="/2019/03/18/早上五点的清晨/" class="title">早上五点的清晨</a></p>
+                            <p class="item-date"><time datetime="2019-03-18T11:17:00.000Z" itemprop="datePublished">2019-03-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/10/花卉市场&龙华古寺之旅/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/LIFE/">LIFE</a></p>
+                            <p class="item-title"><a href="/2019/03/10/花卉市场&龙华古寺之旅/" class="title">花卉市场&amp;龙华古寺之旅</a></p>
+                            <p class="item-date"><time datetime="2019-03-10T13:43:00.000Z" itemprop="datePublished">2019-03-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/03/上海仙人掌养殖基地之旅/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://swcheng.com/images/heying.jpg)" alt="上海仙人掌养殖基地之旅" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/LIFE/">LIFE</a></p>
+                            <p class="item-title"><a href="/2019/03/03/上海仙人掌养殖基地之旅/" class="title">上海仙人掌养殖基地之旅</a></p>
+                            <p class="item-date"><time datetime="2019-03-03T07:17:00.000Z" itemprop="datePublished">2019-03-03</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DATA-SCRAPING/">DATA SCRAPING</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/DATA-STRACTURE/">DATA_STRACTURE</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/LIFE/">LIFE</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/START/">START</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UI/">UI</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/UI/VUE/">VUE</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DRAWING/">DRAWING</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EMOTION/">EMOTION</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EXPERIENCE/">EXPERIENCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FEELING/">FEELING</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPORTS/">SPORTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STROLL/">STROLL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TECHNOLOGY/">TECHNOLOGY</a><span class="tag-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/DRAWING/" style="font-size: 10px;">DRAWING</a> <a href="/tags/EMOTION/" style="font-size: 10px;">EMOTION</a> <a href="/tags/EXPERIENCE/" style="font-size: 10px;">EXPERIENCE</a> <a href="/tags/FEELING/" style="font-size: 20px;">FEELING</a> <a href="/tags/SPORTS/" style="font-size: 10px;">SPORTS</a> <a href="/tags/STROLL/" style="font-size: 15px;">STROLL</a> <a href="/tags/TECHNOLOGY/" style="font-size: 20px;">TECHNOLOGY</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fas fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2019 Chengshiwei<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
