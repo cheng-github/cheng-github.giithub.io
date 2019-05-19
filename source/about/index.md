@@ -20,7 +20,7 @@ layout: "page"
   </tr>
   <tr>
     <td>学校</td>
-    <td>2018-12 ~ 2018-01</td>
+    <td>2017-12 ~ 2018-01</td>
     <td>Sniffer</td>
     <td>TCP/IP协议课程设计，一个网络嗅探器，为其添加了写入文件功能</td>
     <td>https://github.com/cheng-github/Sniffer</td>
@@ -31,6 +31,13 @@ layout: "page"
     <td>Hexo博客</td>
     <td>Start to express!</td>
     <td>http://swcheng.com</td>
+  </tr>
+  <tr>
+    <td>Teradata</td>
+    <td>2018-07 ~ 2018-12</td>
+    <td>Java Web开发实习</td>
+    <td>第一份实习，让自己更加清楚自己想要的是什么</td>
+    <td>无</td>
   </tr>
 </table>
 {% endraw %}  
