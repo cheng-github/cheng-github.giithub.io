@@ -1,0 +1,4 @@
+# Dependency directories
+node_modules/
+# 忽略public，因为public都是存放静态页面的内容，没有必要同步上去
+public/
