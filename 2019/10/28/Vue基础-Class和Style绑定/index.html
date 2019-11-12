@@ -3,67 +3,22 @@
 <head>
     <meta charset="utf-8">
     
-    <title>花卉市场&amp;龙华古寺之旅 | Cheng</title>
+    <title>Vue基础 - Class和Style绑定 | Cheng</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="这周为了完成将腾讯新闻爬取到数据库的任务，搞得自己有点精疲力尽，眼睛也有些受不了长时间的工作，意识又陷入被程序捕获的状态，所以我在写完这个代码之后，当即决定去操场跑步先放松一下自己的身体。再想着周六日去哪儿逛逛放松一下自己的精神。">
-<meta name="keywords" content="STROLL">
+    <meta name="description" content="在开发中我们不可避免的要动态的改变一个元素的样式，有时候是为了响应用户操作，有时候是根据数据的不同显示不同的样式等。这些时候我们的样式不可以进行硬编码，在正常情况下我们需要手动编写JS去实现这个功能，但是在Vue组件中，可以使用数据绑定一样的方式为组件的属性进行赋值达到动态修改组件样式的目的，由于Vue强大的响应式功能，我们可以很方便的修改组件的class和style属性。">
+<meta name="keywords" content="TECHNOLOGY">
 <meta property="og:type" content="article">
-<meta property="og:title" content="花卉市场&amp;龙华古寺之旅">
-<meta property="og:url" content="http://swcheng.com/2019/03/10/花卉市场&龙华古寺之旅/index.html">
+<meta property="og:title" content="Vue基础 - Class和Style绑定">
+<meta property="og:url" content="http://swcheng.com/2019/10/28/Vue基础-Class和Style绑定/index.html">
 <meta property="og:site_name" content="Cheng">
-<meta property="og:description" content="这周为了完成将腾讯新闻爬取到数据库的任务，搞得自己有点精疲力尽，眼睛也有些受不了长时间的工作，意识又陷入被程序捕获的状态，所以我在写完这个代码之后，当即决定去操场跑步先放松一下自己的身体。再想着周六日去哪儿逛逛放松一下自己的精神。">
+<meta property="og:description" content="在开发中我们不可避免的要动态的改变一个元素的样式，有时候是为了响应用户操作，有时候是根据数据的不同显示不同的样式等。这些时候我们的样式不可以进行硬编码，在正常情况下我们需要手动编写JS去实现这个功能，但是在Vue组件中，可以使用数据绑定一样的方式为组件的属性进行赋值达到动态修改组件样式的目的，由于Vue强大的响应式功能，我们可以很方便的修改组件的class和style属性。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://swcheng.com/images/huahui_route.jpg">
-<meta property="og:image" content="http://swcheng.com/images/qinqinghuahi.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic1.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic2.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic3.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic4.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic5.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic6.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic7.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic8.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic9.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic10.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic11.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic12.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic13.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic14.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic15.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic16.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic17.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic18.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic19.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic20.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic21.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic22.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic23.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic24.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic25.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic26.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic27.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic28.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic29.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic30.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic31.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic32.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic33.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic34.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic35.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic36.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic37.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic38.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic39.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic40.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic41.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic42.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic43.jpg">
-<meta property="og:image" content="http://swcheng.com/images/flowers/pic44.jpg">
-<meta property="og:updated_time" content="2019-05-19T09:42:05.869Z">
+<meta property="og:image" content="http://swcheng.com/images/vuelogo.png">
+<meta property="og:updated_time" content="2019-10-28T05:23:25.106Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="花卉市场&amp;龙华古寺之旅">
-<meta name="twitter:description" content="这周为了完成将腾讯新闻爬取到数据库的任务，搞得自己有点精疲力尽，眼睛也有些受不了长时间的工作，意识又陷入被程序捕获的状态，所以我在写完这个代码之后，当即决定去操场跑步先放松一下自己的身体。再想着周六日去哪儿逛逛放松一下自己的精神。">
-<meta name="twitter:image" content="http://swcheng.com/images/huahui_route.jpg">
+<meta name="twitter:title" content="Vue基础 - Class和Style绑定">
+<meta name="twitter:description" content="在开发中我们不可避免的要动态的改变一个元素的样式，有时候是为了响应用户操作，有时候是根据数据的不同显示不同的样式等。这些时候我们的样式不可以进行硬编码，在正常情况下我们需要手动编写JS去实现这个功能，但是在Vue组件中，可以使用数据绑定一样的方式为组件的属性进行赋值达到动态修改组件样式的目的，由于Vue强大的响应式功能，我们可以很方便的修改组件的class和style属性。">
+<meta name="twitter:image" content="http://swcheng.com/images/vuelogo.png">
     
 
     
@@ -268,7 +223,7 @@
 </aside>
 
             
-            <section id="main"><article id="post-花卉市场&amp;龙华古寺之旅" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-Vue基础-Class和Style绑定" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -276,7 +231,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            花卉市场&amp;龙华古寺之旅
+            Vue基础 - Class和Style绑定
         </h1>
     
 
@@ -285,8 +240,8 @@
                         
     <div class="article-date">
         <i class="fas fa-calendar-alt"></i>
-        <a href="/2019/03/10/花卉市场&龙华古寺之旅/">
-            <time datetime="2019-03-10T13:43:00.000Z" itemprop="datePublished">2019-03-10</time>
+        <a href="/2019/10/28/Vue基础-Class和Style绑定/">
+            <time datetime="2019-10-28T02:00:00.000Z" itemprop="datePublished">2019-10-28</time>
         </a>
     </div>
 
@@ -294,13 +249,13 @@
                         
     <div class="article-category">
     	<i class="fas fa-folder"></i>
-        <a class="article-category-link" href="/categories/LIFE/">LIFE</a>
+        <a class="article-category-link" href="/categories/UI/">UI</a><i class="fas fa-angle-right"></i><a class="article-category-link" href="/categories/UI/VUE/">VUE</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/STROLL/">STROLL</a>
+        <a class="tag-link" href="/tags/TECHNOLOGY/">TECHNOLOGY</a>
     </div>
 
                     </div>
@@ -311,29 +266,38 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-			<p>　　这周为了完成将腾讯新闻爬取到数据库的任务，搞得自己有点精疲力尽，眼睛也有些受不了长时间的工作，意识又陷入被程序捕获的状态，所以我在写完这个代码之后，当即决定去操场跑步先放松一下自己的身体。再想着周六日去哪儿逛逛放松一下自己的精神。<br><a id="more"></a>　　</p>
-<p>　　为了编写这个程序，在经历了使用Scrapy+Splash的失望的情绪之后，决定愤然不使用框架，自己使用Python Http请求库requests编写程序根据程序请求的api实现自动化抓取新闻数据并最终写入数据库。虽然最后也完成了这个任务，但是还是觉得这之间有太多的小细节搞得我痛苦不已，经常会被腾讯新闻参差不齐的json数据返回结果解析搞得头疼不已，加上它本身的url格式不同且请求数据方式不同，所以我不得不将程序的逻辑复杂化。</p>
-<p>　　em…所以在写完这个程序之后，自己在感慨框架确实是一个好东西，至少每个站点的数据请求方式以及模式都不相同，如果每次我们想要爬取一个站点的数据都去编写一个这样的逻辑，实在是一个费劲的工作，而框架就为我们解决这类问题提供了一个通用的方法，不得不为前辈们的智慧心血感到佩服。工作归工作，生活还是蛮重要的，还是回到文章的正题，花卉市场以及龙华古寺之旅 u_u</p>
-<p>　　上海有很多花卉市场，但是经过考虑之后，我选择了钦青花卉市场，因为看评论以及评分好像都还不错，距离也还行，就决定去了。</p>
-<p><img src="/images/huahui_route.jpg" alt="" title="上海钦青花卉市场路线"></p>
-<p>　　一路奔波，终于到达了目的地，从外面来看好像还不错 (✪ω✪)</p>
-<p><img src="/images/qinqinghuahi.jpg" alt="" title="上海钦青花卉市场"></p>
-<p>　　然后就是到里面到处逛，发现了很多好看的植物…我看着这些植物…有一瞬间感觉自己也只是一个会移动的生命而已，除此之外和它们一样只是在简单的存在着的生命体而已，没有什么特别之处。其它的好像也没什么值得说的，不如贴一些图片吧 ヾ(ｏ･ω･)ﾉ </p>
-<p><img src="/images/flowers/pic1.jpg" alt=""><br><img src="/images/flowers/pic2.jpg" alt=""><br><img src="/images/flowers/pic3.jpg" alt=""><br><img src="/images/flowers/pic4.jpg" alt=""><br><img src="/images/flowers/pic5.jpg" alt=""><br><img src="/images/flowers/pic6.jpg" alt=""><br><img src="/images/flowers/pic7.jpg" alt=""><br><img src="/images/flowers/pic8.jpg" alt=""><br><img src="/images/flowers/pic9.jpg" alt=""><br><img src="/images/flowers/pic10.jpg" alt=""><br><img src="/images/flowers/pic11.jpg" alt=""></p>
-<p>　　逛了前面的花卉市场，这后面紧接着还有一个市场，像是以前传统一点的老花卉市场，虽然装修上不如前面的花卉市场，不过也很有意思。里面除了有一些花卉之外，还有一些动物，比如鱼、鸟、兔子、乌龟等之类的。本来自己是有买几条鱼回去养的念头的，但是后来想想还是算了，毕竟一个小鱼缸里放几条鱼感觉也怪没意思的，一点都不具备观赏性，也不热闹，甚至还会感到有些冷清。而且宿舍也不具备那个条件，不如等以后又条件了自己再弄一个大鱼缸，再搞个氧气泵，这样就可以开心的养各种各样的鱼了。看着这些鱼类，不禁让自己回忆起曾经在北京去过的一个水族馆，当时第一次看到那么多种类的海底动物，感觉很震撼，第一次觉得水底世界特别的美，下次一定还要去一次水族馆…就是门票费感觉不太便宜 T_T</p>
-<p>　　不多说了，赶紧贴一些图片吧。(感觉蓝色的鹦鹉贼好看 (๑╹◡╹)ﾉ”””)</p>
-<p><img src="/images/flowers/pic12.jpg" alt=""><br><img src="/images/flowers/pic13.jpg" alt=""><br><img src="/images/flowers/pic14.jpg" alt=""><br><img src="/images/flowers/pic15.jpg" alt=""><br><img src="/images/flowers/pic16.jpg" alt=""><br><img src="/images/flowers/pic17.jpg" alt=""><br><img src="/images/flowers/pic18.jpg" alt=""><br><img src="/images/flowers/pic19.jpg" alt=""><br><img src="/images/flowers/pic20.jpg" alt=""><br><img src="/images/flowers/pic21.jpg" alt=""><br><img src="/images/flowers/pic22.jpg" alt=""><br><img src="/images/flowers/pic23.jpg" alt=""><br><img src="/images/flowers/pic24.jpg" alt=""><br><img src="/images/flowers/pic25.jpg" alt=""><br><img src="/images/flowers/pic26.jpg" alt=""><br><img src="/images/flowers/pic27.jpg" alt=""><br><img src="/images/flowers/pic28.jpg" alt=""><br><img src="/images/flowers/pic29.jpg" alt=""><br><img src="/images/flowers/pic30.jpg" alt=""><br><img src="/images/flowers/pic31.jpg" alt=""><br><img src="/images/flowers/pic32.jpg" alt=""><br><img src="/images/flowers/pic33.jpg" alt=""><br><img src="/images/flowers/pic34.jpg" alt=""><br><img src="/images/flowers/pic35.jpg" alt=""></p>
-<p>　　花鸟市场逛完之后，本来看时间还早，打算去下一个花鸟市场看看有什么不一样没有，但是还是机缘巧合的在路中发现了龙华寺，早就听说过这个寺庙了。因为易中天每年春节都要来上海龙华古寺参禅斗诗，所以当自己路过龙华寺的时候，多半是掺杂的是对易大师的敬仰，就兴冲冲的往龙华寺奔去了。仔细回想为什么自己会如此喜欢易中天，还是结缘于他的品三国系列，除了他的品三国之外，我也听了很多关于他在其它方面的言论，以及读过他的读城记，也去了解过他的一些经历，可以说是自己非常喜欢的一位大师了，至今在自己的宿舍还摆着他的书，虽然这些书自己现在还并没有怎么看.. (´･ᴗ･`)</p>
-<p><img src="/images/flowers/pic36.jpg" alt=""></p>
-<p>　　突然有点怀念超喜欢易中天还处于高中时候，也超喜欢我高中的物理老师易大师，我觉得他们都是真正属于自由率性的人，好像前几天自己还做梦梦到自己又碰到自己的高中物理老师，自己很高兴但对方好像不怎么爱理我…(﹂_﹂)。其实有想要回家的时候把易大师约出来吃个饭的，但是手机号码在自己之前的手机里被自己搞丢了。并且又想到自己还经历比较浅，也没搞出什么名堂，不如再过几年等自己再成长一段时间再去找他唠嗑聊天，或许那时候会聊得比较好吧。</p>
-<p>　　em…还是将目光切换到龙华古寺…既然来了，不如入乡随俗，那当然少不了拜佛祖、拜菩萨，许下了自己的小心愿。嗯…肯定许的不是下面这个愿望。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">               _ooOoo_</span></span><br><span class="line"><span class="comment">              o8888888o</span></span><br><span class="line"><span class="comment">              88" . "88</span></span><br><span class="line"><span class="comment">              (| -_- |)</span></span><br><span class="line"><span class="comment">              O\  =  /O</span></span><br><span class="line"><span class="comment">           ____/`---'\____</span></span><br><span class="line"><span class="comment">         .'  \\|     |//  `.</span></span><br><span class="line"><span class="comment">        /  \\|||  :  |||//  \</span></span><br><span class="line"><span class="comment">       /  _||||| -:- |||||-  \</span></span><br><span class="line"><span class="comment">       |   | \\\  -  /// |   |</span></span><br><span class="line"><span class="comment">       | \_|  ''\---/''  |   |</span></span><br><span class="line"><span class="comment">       \  .-\__  `-`  ___/-. /</span></span><br><span class="line"><span class="comment">     ___`. .'  /--.--\  `. . __</span></span><br><span class="line"><span class="comment">  ."" '&lt;  `.___\_&lt;|&gt;_/___.'  &gt;'"".</span></span><br><span class="line"><span class="comment"> | | :  `- \`.;`\ _ /`;.`/ - ` : | |</span></span><br><span class="line"><span class="comment"> \  \ `-.   \_ __\ /__ _/   .-` /  /</span></span><br><span class="line"><span class="comment">======`-.____`-.___\_____/___.-`____.-'======</span></span><br><span class="line"><span class="comment">               `=---='</span></span><br><span class="line"><span class="comment">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span></span><br><span class="line"><span class="comment">        佛祖保佑       永无BUG</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<p>　　附上一些龙华寺的照片。</p>
-<p><img src="/images/flowers/pic37.jpg" alt=""><br><img src="/images/flowers/pic38.jpg" alt=""><br><img src="/images/flowers/pic39.jpg" alt=""><br><img src="/images/flowers/pic40.jpg" alt=""></p>
-<p>　　又去逛了旁边的龙华烈士陵园。</p>
-<p><img src="/images/flowers/pic41.jpg" alt=""><br><img src="/images/flowers/pic42.jpg" alt=""><br><img src="/images/flowers/pic43.jpg" alt=""><br><img src="/images/flowers/pic44.jpg" alt=""></p>
-<p>　　最后叶挺将军的诗句让我觉得特别震撼，记得这是小学语文课本上的文章，当时不知道什么叫狗洞，还以为是在一个监狱里特地为囚犯打了一个狗洞可以钻出去。-.-。尤其是最后一句”我应该在烈火与热血中得到永生”，我体会到了话语中为了心中的理想不顾一切的热血与疯狂，他们注定是时代的缔造者。北伐期间的叶挺独立团，即使距离现在这么多年，也依旧不能不对这支铁血之师报以敬畏之心。</p>
-<p>　　All dream never die.</p>
+			<p>　　在开发中我们不可避免的要动态的改变一个元素的样式，有时候是为了响应用户操作，有时候是根据数据的不同显示不同的样式等。这些时候我们的样式不可以进行硬编码，在正常情况下我们需要手动编写JS去实现这个功能，但是在Vue组件中，可以使用数据绑定一样的方式为组件的属性进行赋值达到动态修改组件样式的目的，由于Vue强大的响应式功能，我们可以很方便的修改组件的class和style属性。</p>
+<a id="more"></a>
+<p>　　Vue对class和style两个属性做了特别的增强，一般的属性的值只能为js计算结果的字符串，但class和style除了字符串外，还可以是对象或者数组：</p>
+<h2 id="class绑定"><a href="#class绑定" class="headerlink" title="class绑定"></a>class绑定</h2><h3 id="使用对象的方式"><a href="#使用对象的方式" class="headerlink" title="使用对象的方式"></a>使用对象的方式</h3><p>　　为class属性添加一个对象，</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>　　在使用对象表达一个组件的class的时候，对象的属性表示class的值，而该属性的值isActive是否为一个真值，即true或false，如果不是true或false则会被强制转化为true或false值。当其为true的时候表示改组件有这个属性表示的class，否则没有，所以你可以通过在这个对象中添加多个属性达到控制组件class的目的。比如使用下面的方式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive, 'text-danger': hasError &#125;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>　　此外，v-bind:class属性还可以和普通的class属性共存，比如有下面的例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">  <span class="attr">class</span>=<span class="string">"static"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive, 'text-danger': hasError &#125;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>　　如果有以下data，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  isActive: <span class="literal">true</span>,</span><br><span class="line">  hasError: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　结果会被渲染为，</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static active"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>　　当isActive或者hasError的值变化时，class列表将相应地更新。例如，如果hasError的值为true，class列表将变为”static active text-danger”。当然这里前提是isActive和hasError需要满足响应式的前提，由于js的限制，vue无法对对象属性的增加和删除进行响应，也没法对数组的非变异方法进行响应。</p>
+<h3 id="使用数组的方式"><a href="#使用数组的方式" class="headerlink" title="使用数组的方式"></a>使用数组的方式</h3><p>　　我们可以把一个数组传给 v-bind:class，</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[&#123; active: isActive &#125;, errorClass]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">data: &#123;</span><br><span class="line">  errorClass: 'text-danger',</span><br><span class="line">  isActive: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　与对象的渲染方式不同，使用数组会判断在数组中的变量类型，如果变量的值的类型为一个对象，那么它会像传递对象的方式去处理这个变量，如果这个变量的值的类型为一个字符串，那么会将其代表的字符串的值作为组件的class属性，</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"active text-danger"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>　　在使用组件的方式的时候，你可以使用三元表达式去控制数组中的成员达到控制组件属性的目的：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[&#123; active: isActive &#125;, errorClass]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="与模版class共存"><a href="#与模版class共存" class="headerlink" title="与模版class共存"></a>与模版class共存</h3><p>　　之前我们已经知道v-bind:class可以与class共存，除此之外，其实v-bind:class以及class都同时可以和组件定义处的属性共存。例如，你声明了下面的组件，<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vue.component('my-component', &#123;</span><br><span class="line">  template: '<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"foo bar"</span>&gt;</span>Hi<span class="tag">&lt;/<span class="name">p</span>&gt;</span>'</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>　　如果直接添加一些class，<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">class</span>=<span class="string">"baz boo"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>　　结果会被渲染为：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"foo bar baz boo"</span>&gt;</span>Hi<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>　　同样对于v-bind:class也同样适用，<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>　　当 isActive 为 truthy[1] 时，HTML 将被渲染成为：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"foo bar active"</span>&gt;</span>Hi<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="style内联样式绑定"><a href="#style内联样式绑定" class="headerlink" title="style内联样式绑定"></a>style内联样式绑定</h2><h3 id="使用对象的方式-1"><a href="#使用对象的方式-1" class="headerlink" title="使用对象的方式"></a>使用对象的方式</h3><p>　　与class绑定有所区别，在内联样式的绑定中，对象的属性和值分别表示css属性的名称和值，需要注意的是，对象属性的值类型必须为字符串而不可以是其它任意类型的值，因为vue无法判断对象属性中的值的单位，所以我们必须使用字符串进行准确的定义。CSS的很多属性都使用横线分割表示，我们在js中对象定义属性的时候无法直接定义短横线分割的属性，虽然可以通过加单引号包含的方式添加这样的属性，但是访问起来也必须通过[]的方式引用，这样未免太不人性化，所以vue提供了驼峰式(camelCase)的方式在对象中定义属性达到定义css属性的方式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"&#123; color: activeColor, fontSize: fontSize + 'px' &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">data: &#123;</span><br><span class="line">  activeColor: 'red',</span><br><span class="line">  fontSize: 30</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　直接绑定到一个样式对象通常更好，这会让模板更清晰：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"styleObject"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">data: &#123;</span><br><span class="line">  styleObject: &#123;</span><br><span class="line">    color: 'red',</span><br><span class="line">    fontSize: '13px'</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>　　结果会被渲染为:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"color: 'red'; fontSize: '13px'"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="使用数组的方式-1"><a href="#使用数组的方式-1" class="headerlink" title="使用数组的方式"></a>使用数组的方式</h3><p>　　v-bind:style使用数组的方式类似于v-bind:class，可以同时定义多个变量，也可以使用三元表达式，同时根据变量的类型去定义css属性。</p>
+<h3 id="自动添加前缀"><a href="#自动添加前缀" class="headerlink" title="自动添加前缀"></a>自动添加前缀</h3><p>　　在v-bind:style使用一些需要自动添加<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Vendor_Prefix" target="_blank" rel="noopener">]浏览器引擎前缀</a>的css属性的时候，Vue.js 会自动侦测并添加相应的前缀。</p>
+<h3 id="多重值"><a href="#多重值" class="headerlink" title="多重值"></a>多重值</h3><p>　　从 2.3.0 起你可以为 style 绑定中的属性提供一个包含多个值的数组，常用于提供多个带前缀的值，例如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">"&#123; display: ['-webkit-box', '-ms-flexbox', 'flex'] &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>　　这样写只会渲染数组中最后一个被浏览器支持的值。在本例中，如果浏览器支持不带浏览器前缀的 flexbox，那么就只会渲染 display: flex。</p>
 
         
         </div>
@@ -344,7 +308,7 @@
 
 </div>
 
-    <a data-url="http://swcheng.com/2019/03/10/花卉市场&龙华古寺之旅/" data-id="cjzr1cxb1001hfo81f38i1cn8" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
+    <a data-url="http://swcheng.com/2019/10/28/Vue基础-Class和Style绑定/" data-id="ck29vbsl500004081iwgtvyvn" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -419,19 +383,19 @@
         
 <nav id="article-nav">
     
-        <a href="/2019/03/18/早上五点的清晨/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2019/10/28/Vue基础-组件/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    早上五点的清晨
+                    Vue基础 - 组件
                 
             </div>
         </a>
     
     
-        <a href="/2019/03/03/上海仙人掌养殖基地之旅/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/08/25/小半，小梦大半/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">上海仙人掌养殖基地之旅</div>
+            <div class="article-nav-title">小半，小梦大半</div>
         </a>
     
 </nav>
