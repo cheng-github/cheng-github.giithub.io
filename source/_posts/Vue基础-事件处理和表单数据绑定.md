@@ -51,7 +51,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
 {% endcodeblock %}
 
 ### 监听事件
-　　使用v-on指令去进行基础事件的监听，在触发事件时执行一些js代码:
+　　使用v-on指令去进行基础事件的监听，在触发事件时进行相应处理:
 {% codeblock lang:html %}
   <div id="example-1">
     <!-- 基本的事件处理 -->
@@ -63,7 +63,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
 {% codeblock lang:html %}
 　<button v-on:click="greet">Greet</button>
 {% endcodeblock %}
-　　点击这个按钮则会调用greet方法，这里我们直接绑定的是在vue对象中定义的方法名而不带任何参数，当然你也可以选择在这里选择直接调用一个带参数的方法。这里兼顾了属性定义监听和使用DOM定义绑定方法对象两种方式。比如:
+　　点击这个按钮则会调用greet方法，这里我们直接绑定的是在vue对象中定义的方法名而不带任何参数，当然也可以选择在这里选择直接调用一个带参数的方法。并且这里兼顾了属性定义监听和使用DOM定义绑定方法对象两种方式。比如:
 {% codeblock lang:html %}
   <button v-on:click="say(message)">Say</button>
 {% endcodeblock %}
@@ -133,7 +133,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
 {% endcodeblock %}
 　　
 ### 表单数据绑定
-　　在一个表单中只能包含一些表单元素，常见的表单元素有input、textarea、select等。所谓的表单数据绑定在vue中指的是将vue对象中的属性与表单元素的输入进行绑定，也就是说无论是vue对象中属性值的变化或者是表单元素的输入，都会同步修改对方的值。在vue中使用v-model指令去实现这一功能，v-model指令本质也是通过监听用户的输入事件去更新输入。v-model为不同的元素的不同属性去抛出不同的事件，text 和 textarea 元素使用 value 属性和 input 事件；checkbox 和 radio 使用 checked 属性和 change 事件；select 字段将 value 作为 prop 并将 change 作为事件。
+　　在一个表单中只能包含一些表单元素，常见的表单元素有input、textarea、select等。所谓的表单数据绑定在vue中指的是将vue数据对象与表单元素的输入进行绑定，也就是说无论是vue数据对象的变化或者是表单元素的输入，都会同步修改对方的值。在vue中使用v-model指令去实现这一功能，而v-model指令本质也是通过监听用户的输入事件去更新输入。v-model针对不同的元素的不同属性抛出的不同事件进行数据修改，text 和 textarea 元素使用 value 属性和 input 事件；checkbox 和 radio 使用 checked 属性和 change 事件；select 字段将 value 作为 prop 并将 change 作为事件。
 　　下面是一些基本组件的使用的例子:
 {% codeblock lang:html %}
   <!-- 普通input输入框 -->
@@ -179,17 +179,3 @@ thumbnail: http://swcheng.com/images/vuelogo.png
   </select>
   <span>Selected: {% raw %}{{ selected }}{% endraw %}</span>
 {% endcodeblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-

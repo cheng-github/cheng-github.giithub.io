@@ -129,25 +129,27 @@ thumbnail: http://swcheng.com/images/vuelogo.png
 　　当然也可以解析除了id之外的其它任何属性。注意以上无论是使用v-指令亦或者是Mustache标签，都可以使用js表达式去获得最终的值，但是仅仅可以使用一个js表达式去计算，而不可以写一堆js语句。
 
 ### 计算属性
-　　计算属性是我们在vue对象中定义的需要通过一些js代码计算获得最终值的属性，这些属性的变化取决于它需要计算的属性的变化，这个对应的属性被称为响应式依赖。比如这里的message即使需要被计算的对象，当message变化的时候reversedMessgae属性就会发生变化。
+　　计算属性是我们在vue对象中定义的需要通过一些js代码计算获得最终值的属性，这些属性的变化取决于它需要计算的属性的变化，这个对应的属性被称为响应式依赖。比如这里的message是需要被计算的对象，当message变化的时候reversedMessgae属性就会发生变化。
 {% codeblock lang:html  %}
     <div id="example">
       <p>Computed reversed message: "{% raw %}{{ message }}{% endraw %}"</p>
     </div>
 {% endcodeblock %}
 
-　　如果你不需要当响应式依赖改变的时候才可以改变计算属性的值，你想要自己手动直接修改，那么你可以修改为下面。当然这里的cache意味着你访问这个computed的值的时候，它是否会使用之前的缓存值，不使用则是是重新调用get方法。而且，即使我们重写这个set方法，其实作用也不大，因为我们再次获取就会调用get方法，返回不是我们改变的值，所以只有在set中改变对应的响应式依赖，这里的改变才会变得有意义。
+　　如果你不想要当响应式依赖改变的时候才可以改变计算属性的值，你可能想要自己手动直接修改，那么可以为这个计算属性添加一个setter方法。(这里的cache意味着你访问这个computed的值的时候，仅当响应式依赖发生改变的时候才会重新执行getter函数，如果没有cache则会每次访问都重新调用getter方法。)下面的示例中，即使我们重写这个set方法，直接给fullName赋予的新值作为newValue出现在setter的第一个参数中，如果我们想要再次访问修改后的计算属性值，我们必须去修改它的响应式依赖，因为当再次访问计算属性就会调用get方法，所以只可以通过间接的修改响应式依赖的方式去达到修改计算属性的目的。
 {% codeblock lang:js %}
 computed: {
-  reversedMessage: {
+  fullName: {
     cache: false,
     // getter
     get: function () {
-      return this.message.split('').reverse().join('')
+      return this.firstName + ' ' + this.lastName
     },
     // setter
     set: function (newValue) {
-      this.message = newValue
+      var names = newValue.split(' ')
+      this.firstName = names[0]
+      this.lastName = names[names.length - 1]
     }
   }
 }
@@ -168,6 +170,9 @@ computed: {
 
 　　对于class属性以及style属性，如果去做一些字符串拼接和计算，则会特别繁琐，故而vue对这些属性的绑定做了一些特别的处理。
 
+### 计算属性 vs 方法
+　　在vue中，不只是计算属性是可以根据响应式依赖变化去重新计算求值的，我们可以通过定义一个方法返回这个计算值同样可以达到目的。但对于绝大多数情况，从直观的角度来看，使用计算属性是更好的满足这一类需求的方式，但方法的优点是可以传递参数，这样我们可以根据参数的不同编写更加通用的响应式返回值。所以从某种观点出发，方法是更为通用的"计算属性"。除此之外，方法并无cache，每次触发重新渲染的时候总会执行方法，对于一些非响应式的依赖值比如Date.now()，方法总会重新计算它们的值。这是二者的优缺点的比较。
+
 ### class属性绑定
 　　直接引用vue对象中定义的对象或者手动创建一个对象亦或者是一个属性，或者是使用一个包含对象以及属性的数组:
 {% codeblock lang:html  %}
@@ -175,11 +180,11 @@ computed: {
   <span v-bind:class="{ active: isActive, 'text-danger': hasError}"></span>
   <!-- 直接引用一个对象 -->
   <span v-bind:class="classObject"></span>
-  <!-- 传递一个数组，这里是将数组里的属性作为对象中的属性值传递到里面去，这样就不存在是否有true或false这一说法了 -->
+  <!-- 传递一个数组，这里是将数组里的属性的值作为标签的类的值 -->
   <span v-bind:class="[ind1, ind2]"></span>
   <!-- 也可以将属性和对象共同使用 -->
   <span v-bind:class="[ind1, ind2, classObject]"></span>
-  <!-- 如果想要达到使用数组切换的目的，那么可以使用三元表达式 -->
+  <!-- 在数组中还可以使用三元表达式 -->
   <span v-bind:class="[isActive ? ind1: '', ind2]"></span>
 {% endcodeblock %}
 
@@ -191,7 +196,7 @@ computed: {
   <span class="class1 class2 cla1 cls2"></span>
   <span class="class1 class2"></span>
 {% endcodeblock %}　　
-　　对于自定义组件，如果在定义中就已经存在一些值，那么会在其后进行追加。
+　　对于自定义组件，如果在定义中就已经存在一些值，那么会在其后进行追加:
 {% codeblock lang:html %}
   <!-- 组件的定义必须放在最前面 -->
   <my-component v-bind:class="{ active: isActive }"></my-component>
@@ -200,7 +205,7 @@ computed: {
 {% codeblock lang:html %}
   <p class="foo bar active">Hi</p>
 {% endcodeblock %}　　
-　　可以与普通的class属性共存，也就是可以使用class与v-bind共同完成属性的设置。
+　　可以与普通的class属性共存，也就是可以使用class与v-bind共同完成属性的设置:
 {% codeblock lang:html %}
   <!-- 也可以与普通的class属性共存 -->
 <div class="static"
@@ -245,6 +250,3 @@ computed: {
 
 ### 注意
 　　在编写这篇Vue笔记的时候，会出现Mustache标签与Nunjucks语法冲突的问题，解决方案可以查看 [这里](https://github.com/hexojs/hexo/issues/1930 "Vue.js 中的双大括号{{ Mustache }}与 Nunjucks 解析相冲突")。
-
-
-

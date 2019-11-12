@@ -7,7 +7,7 @@ tags:
 - [TECHNOLOGY]
 thumbnail: http://swcheng.com/images/vuelogo.png
 ---
-　　创建一个下面的vue对象：
+　　创建一个下面的vue对象:
 <!-- more -->
 {% codeblock lang:js %}
   Vue.component('my-component',{
@@ -85,7 +85,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
   <template v-else>
     <label>Email</label>
     <input placeholder="Enter your email address" key="email-input">
-  </template> 
+  </template>
 {% endcodeblock %}
 
 ### 使用v-show
@@ -149,7 +149,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
             40
           </p>
 {% endcodeblock %}
-　　与数组一样可以接受多个参数。需要注意的是，第一个位置一定是value，第二个位置一定是key,第三个是index。这与js的语言特性有关，因为其有一个arguments变量，而方法中的参数只是显示的对其的值进行了使用而已。需要注意的是遍历的顺序是按照Object.keys()的结果，但是可能在不同的js引擎是不一致的。并且与v-if类似，vue会智能的复用组件，所以如果有需要可以在v-for遍历的组件上加上key属性去标识每一个组件提示vue不需要进行复用。
+　　与数组一样可以接受多个参数。需要注意的是，第一个位置一定是value，第二个位置一定是key，第三个是index。这与js的语言特性有关，因为其有一个arguments变量，而方法中的参数名只是针对其位置对其进行赋值而已。需要注意的是遍历的顺序是按照Object.keys()的结果，但是可能在不同的js引擎是不一致的。并且与v-if类似，vue会智能的复用组件，所以如果有需要可以在v-for遍历的组件上加上key属性去标识每一个组件提示vue不需要进行复用。
 {% codeblock lang:html %}
   <p v-for="(value, key, index) in forObject" :key="index">
     {% raw %}{{key}}{% endraw %} : {% raw %}{{value}}{% endraw %} : {% raw %}{{index}}{% endraw %}
@@ -176,7 +176,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
     </template>
   </ul>
 {% endcodeblock %}
-　　同样，如果我们不想要使用原始数组，我们也可以使用一个计算属性或者调用一个方法做到灵活运用选择。计算属性的使用与普通属性相似，这里仅表示方法的调用:
+　　同样，如果我们不想要使用原始数组，我们也可以使用一个计算属性或者调用一个方法做到灵活运用选择。计算属性的使用与普通属性相似，下面是方法的使用:(注意，vue对数组的更新检测会由于js的限制受到对应的限制，具体查阅官方文档列表渲染部分的说明)
 {% codeblock lang:js %}
   data: {
     numbers: [ 1, 2, 3, 4, 5 ]
@@ -192,7 +192,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
 {% codeblock lang:html %}
   <li v-for="n in even(numbers)">{% raw %}{{ n }}{% endraw %}</li>
 {% endcodeblock %}
-　　甚至对于 in x,x可以取整数:
+　　甚至可以直接取整数:
 {% codeblock lang:html %}
   <div>
     <span v-for="n in 10">{% raw %}{{ n }}{% endraw %} </span>
@@ -204,10 +204,10 @@ thumbnail: http://swcheng.com/images/vuelogo.png
 {% endcodeblock %}
 
 ### 数组更新检测
-　　那么我们的列表经过渲染之后，在很多场景下可能会需要对其进行修改，这就是vue里所谓的数组更新检测。在vue中，包含一些变异方法和一些非变异方法，所谓的变异方法就是修改了原数组的内容，而非变异则是不会对原数组里的内容进行修改。但是对于vue来说，变异方法的调用将会触发视图的更新。比如:
+　　那么我们的列表经过渲染之后，在很多场景下可能会需要对其进行修改，这就是vue里所谓的数组更新检测。在vue中，包含一些变异方法和一些非变异方法，所谓的变异方法就是修改了原数组的内容，而非变异则是不会对原数组里的内容进行修改。但是对于vue来说，仅当变异方法的调用将会触发视图的更新。比如:
 {% codeblock lang:js %}
 <!-- vue包含了一些数组变异方法，通过调用这些方法我们可以更新引用该数组的视图 -->
-      push() 
+      push()
       pop()
       shift()  // 把数组第一个元素删除掉
       unshift() // 在数组第一个位置新增一个元素
@@ -248,7 +248,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
     }
   });
 {% endcodeblock %}
-　　如果你想要动态的添加属性到userProfile对象中，你可以:
+　　如果你想要动态的添加属性到userProfile对象中:
 {% codeblock lang:js %}
   Vue.set(vm.userProfile, 'age', 27)
   // 或者别名方法:
@@ -258,7 +258,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
     age: 27,
     favoriteColor: 'Vue Green'
   })
-  // 你应该这样
+  // 应该这样
   vm.userProfile = Object.assign({}, vm.userProfile, {
     age: 27,
     favoriteColor: 'Vue Green'
@@ -303,7 +303,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
     </li>
   </ul>
 {% endcodeblock %}
-　　而且，当它们处于同一节点，v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中。所以如果我们将其放在同一个元素上面，如果我们对数据进行了修改，那么在重渲染的时候遍历整个列表，不论活跃用户是否发生了变化。而我们如果选择使用一个计算属性，我们在渲染的时候只遍历活跃用户，渲染更高效，而且这样解藕渲染层的逻辑，可维护性 (对逻辑的更改和扩展) 更强。
+　　而且，当它们处于同一节点，v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中。所以如果我们将其放在同一个元素上面，如果我们对数据进行了修改，那么在重渲染的时候又会去遍历整个数据列表。而我们如果选择使用一个计算属性，我们在渲染的时候只遍历活跃用户，渲染更高效，而且这样解藕渲染层的逻辑，可维护性 (对逻辑的更改和扩展) 更强。
 
 ### 组件的 v-for
 　　在自定义组件里，你可以像任何普通元素一样用 v-for。并且在2.2.0+ 的版本里，当在组件中使用 v-for 时，key 是必须的。
@@ -319,7 +319,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
     v-bind:key="item.id">
   </my-component>
 {% endcodeblock %}
-　　其实除了key作为标识需要的属性之外，其它比如item和index都是最后赋值到了props这个数组的中所定义的变量名称，然后这些变量名称将会使用在template定义的组件里。
+　　除了key作为标识需要的属性之外，其它如item和index都是最后赋值到了props这个数组的中所定义的变量名称，然后这些变量名称将会使用在template定义的组件里。
 
 ### 小结
-　　条件渲染和列表渲染有点类似于流程控制之类的东西，不过也只是简单的类比。这里关于自定义组件和v-for配合使用的内容比较少，但这应该是一个很重要的内容，详细在后面的笔记中再记录，毕竟一篇文章篇幅有限。
+　　条件渲染和列表渲染有点类似于流程控制之类的东西，不过也只是简单的类比。条件和列表是一个很常用的功能，尤其是对于一些列表式的组件，但是还应该知道v-for和v-if配合使用的问题，从性能角度考虑，我们应尽量避免将v-for和v-if使用在同一个标签的上层。
