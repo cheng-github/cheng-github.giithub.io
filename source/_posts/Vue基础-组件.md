@@ -23,7 +23,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
         count: 0
       }
     },
-    template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    template: '<button v-on:click="count++">You clicked me {% raw %}{{ count }}{% endraw %} times.</button>'
   })
 {% endcodeblock %}
 
@@ -146,7 +146,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
 {% codeblock lang:js %}
   Vue.component('blog-post', {
     props: ['title'],
-    template: '<h3>{{ title }}</h3>'
+    template: '<h3>{% raw %}{{ title }}{% endraw %}</h3>'
   })
 {% endcodeblock %}  
 
@@ -174,7 +174,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
   Vue.component('blog-post', {
     // 在 JavaScript 中是 camelCase 的
     props: ['postTitle'],
-    template: '<h3>{{ postTitle }}</h3>'
+    template: '<h3>{% raw %}{{ postTitle }}{% endraw %}</h3>'
   })
 
   <!-- 在 HTML 中是 kebab-case 的 -->
@@ -187,7 +187,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
   <body>
     <!-- html模板 -->
     <div id="demo" title="i love jack">
-      <span :customId="id">{{message}}</span>
+      <span :customId="id">{% raw %}{{message}}{% endraw %}</span>
     </div>
     <script>
       let obj = {
@@ -215,7 +215,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
       Vue.component('my-component', {
         props: ['param'],
         template: `
-          <div>A custom component{{param}}</div>
+          <div>A custom component{% raw %}{{param}}{% endraw %}</div>
         `
       })
       new Vue({
@@ -254,7 +254,7 @@ thumbnail: http://swcheng.com/images/vuelogo.png
         components: {
           'se-com': {
             props: ['param'],
-            template: `<div>我是第二个组件{{param}}</div>`
+            template: `<div>我是第二个组件{% raw %}{{param}}{% endraw %}</div>`
           }
         },
         // 字符串模板，替换挂载元素
@@ -559,7 +559,7 @@ Vue.component('blog-post', {
     props: ['label', 'value'],
     template: `
       <label>
-        {{ label }}
+        {% raw %}{{ label }}{% endraw %}
         <input
           v-bind="$attrs"
           v-bind:value="value">
@@ -687,7 +687,7 @@ Vue.component('blog-post', {
 {% codeblock lang:html %}
 
   <label>
-    {{ label }}
+    {% raw %}{{ label }}{% endraw %}
     <input
       v-bind="$attrs"
       v-bind:value="value"
@@ -750,7 +750,7 @@ Vue.component('blog-post', {
     },
     template: `
       <label>
-        {{ label }}
+        {% raw %}{{ label }}{% endraw %}
         <input
           v-bind="$attrs"
           v-bind:value="value"
@@ -796,14 +796,14 @@ Vue.component('blog-post', {
 {% codeblock lang:html %}
 
   <div id="app">
-    <p>{{ message }}</p>
+    <p>{% raw %}{{ message }}{% endraw %}</p>
     <child :open.sync="message"></child>
   </div>
 
   <template id="child">
     <div>
       <input type="text" :value="open" @input="$emit('update:open', $event.target.value)">
-      open: {{ open }}
+      open: {% raw %}{{ open }}{% endraw %}
     </div>
   </template>
 
@@ -1008,7 +1008,7 @@ Vue.component('blog-post', {
 {% codeblock lang:html %}
 
   <navigation-link url="/profile">
-    Clicking here will send you to: {{ url }}
+    Clicking here will send you to: {% raw %}{{ url }}{% endraw %}
     <!--
     这里的 `url` 会是 undefined，因为 "/profile" 是
     _传递给_ <navigation-link> 的而不是
@@ -1024,15 +1024,15 @@ Vue.component('blog-post', {
 
 > 父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的。
 
-　　我们通过下面的例子可以去理解这种情况，在组件child定义四个具名插槽，这两个具名插槽都的后备内容分别使用内部和外部两个变量，然后再在
+　　我们通过下面的例子可以去理解这种情况，在组件child定义四个具名插槽，前两个个具名插槽都的后备内容分别使用内部和外部两个变量，后面两个的插槽都在父级传递访问内部和外部两个值，
 
 {% codeblock lang:js %}
 <!-- 定义下面的内容 -->
   Vue.component('child', {
   	template: `
     	<div>
-        <slot>{{ innerMsg }}</slot>
-        <slot name="second">{{ outerMsg }}</slot>
+        <slot>{% raw %}{{ innerMsg }}{% endraw %}</slot>
+        <slot name="second">{% raw %}{{ outerMsg }}{% endraw %}</slot>
         <slot name="third"></slot>
         <slot name="forth"></slot>
       </div>`,
@@ -1064,8 +1064,8 @@ Vue.component('blog-post', {
     <child>
       <template v-slot:default></template>
       <template v-slot:second></template>
-      <template v-slot:third>{{ secondInnerMsg }}</template>
-      <template v-slot:forth>{{ secondOuterMsg }}</template>
+      <template v-slot:third>{% raw %}{{ secondInnerMsg }}{% endraw %}</template>
+      <template v-slot:forth>{% raw %}{{ secondOuterMsg }}{% endraw %}</template>
     </child>
   </div>
 
@@ -1094,7 +1094,7 @@ Vue.component('blog-post', {
 {% codeblock lang:html %}
 
   <span>
-    <slot>{{ user.lastName }}</slot>
+    <slot>{% raw %}{{ user.lastName }}{% endraw %}</slot>
   </span>
 
 {% endcodeblock %}
@@ -1113,7 +1113,7 @@ Vue.component('blog-post', {
 
   <span>
     <slot v-bind:user="user">
-      {{ user.lastName }}
+      {% raw %}{{ user.lastName }}{% endraw %}
     </slot>
   </span>
 
@@ -1125,7 +1125,7 @@ Vue.component('blog-post', {
 
   <current-user>
     <template v-slot:default="slotProps">
-      {{ slotProps.user.firstName }}
+      {% raw %}{{ slotProps.user.firstName }}{% endraw %}
     </template>
   </current-user>
 
@@ -1136,13 +1136,13 @@ Vue.component('blog-post', {
 {% codeblock lang:html %}
 
   <current-user v-slot:default="slotProps">
-    {{ slotProps.user.firstName }}
+    {% raw %}{{ slotProps.user.firstName }}{% endraw %}
   </current-user>
 
 <!-- 由于是默认模板，还可以简写为 -->
 
   <current-user v-slot="slotProps">
-    {{ slotProps.user.firstName }}
+    {% raw %}{{ slotProps.user.firstName }}{% endraw %}
   </current-user>
 　　
 {% endcodeblock %}
@@ -1153,7 +1153,7 @@ Vue.component('blog-post', {
 
   <current-user>
     <template v-slot:default="slotProps">
-      {{ slotProps.user.firstName }}
+      {% raw %}{{ slotProps.user.firstName }}{% endraw %}
     </template>
 
     <template v-slot:other="otherSlotProps">
@@ -1168,17 +1168,17 @@ Vue.component('blog-post', {
 {% codeblock lang:html %}
 
   <current-user v-slot="{ user }">
-    {{ user.firstName }}
+    {% raw %}{{ user.firstName }}{% endraw %}
   </current-user>
 
   <!-- 使用es6结构赋值对prop进行重命名 -->
   <current-user v-slot="{ user: person }">
-    {{ person.firstName }}
+    {% raw %}{{ person.firstName }}{% endraw %}
   </current-user>
 
   <!-- 在组件内部值不存在的时候，使用结构赋值传递一个默认值 -->
   <current-user v-slot="{ user = { firstName: 'Guest' } }">
-    {{ user.firstName }}
+    {% raw %}{{ user.firstName }}{% endraw %}
   </current-user>
 
 {% endcodeblock %}
@@ -1224,12 +1224,12 @@ Vue.component('blog-post', {
 
   <!-- 这样会触发一个警告，且这样的语法是无效的 -->
   <current-user #="{ user }">
-    {{ user.firstName }}
+    {% raw %}{{ user.firstName }}{% endraw %}
   </current-user>
 
   <!-- 正确的写法为: -->
   <current-user #default="{ user }">
-    {{ user.firstName }}
+    {% raw %}{{ user.firstName }}{% endraw %}
   </current-user>
 
 {% endcodeblock %}
@@ -1264,7 +1264,7 @@ Vue.component('blog-post', {
       v-bind:key="tab.name"
       v-bind:class="['tab-button', { active: currentTab.name === tab.name }]"
       v-on:click="currentTab = tab"
-    >{{ tab.name }}</button>
+    >{% raw %}{{ tab.name }{% endraw %}}</button>
 
     <component
       v-bind:is="currentTab.component"
@@ -1639,7 +1639,7 @@ Vue.component('blog-post', {
 {% codeblock lang:html %}
 
   <p>
-    <span>{{ folder.name }}</span>
+    <span>{% raw %}{{ folder.name }}{% endraw %}</span>
     <tree-folder-contents :children="folder.children"/>
   </p>
 
@@ -1652,7 +1652,7 @@ Vue.component('blog-post', {
   <ul>
     <li v-for="child in children">
       <tree-folder v-if="child.children" :folder="child"/>
-      <span v-else>{{ child.name }}</span>
+      <span v-else>{% raw %}{{ child.name }}{% endraw %}</span>
     </li>
   </ul>
 
